@@ -1,3 +1,10 @@
+# RUNNING THE APP
+Local URL: `localhost:3000`
+```
+npm install
+npm start -s
+```
+----
 # REQUIREMENTS
 ## Using React/Redux:
 1) Get cat images from "http://mapd-cats.azurewebsites.net/catpics”
@@ -6,7 +13,7 @@
     - One image will have one fact associated with it.
 4) Be able to remove/delete images (with attached fact) from DOM.
 
--------------------------------------------------------------------
+----
 
 Bonus points for using:
 - Linting
@@ -23,7 +30,7 @@ Feel free to add additional functionality such as:
 - Sorting by length of fact.
 - Adding additional pictures/quotes.
 
--------------------------------------------------------------------
+----
 
 Please use your github account and call the repo: ‘cats’
 
