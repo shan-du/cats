@@ -4,15 +4,17 @@ import {
 } from '../constants/cats';
 
 export function loadCatsData() {
-  return function (dispatch) {
-    return dispatch({
+  return (dispatch) => dispatch(
+    {
       type: LOAD_CATS_DATA,
-    });
-  };
+    }
+  );
 }
 
-export function removeCatData() {
+export function removeCatData(e) {
+  const href = e.target.getAttribute('href');
   return {
     type: REMOVE_CAT_DATA,
+    payload: { removeIndex: href ? href.substr(1) : -1 },
   };
 }
