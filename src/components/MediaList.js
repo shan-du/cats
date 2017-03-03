@@ -11,30 +11,32 @@ const MediaList = (props) => {
       </button>
     ) : null;
 
-  const list = props.data.map(
-    (item, index) => (
-      [
-        (<img
-          key={`image-${index}`}
-          className="item image"
-          src={item.image || ''}
-        />),
-        (<p
-            key={`fact-${index}`}
-            className="item fact"
+  const list = (props.data.length > 0) ?
+    props.data.map(
+      (item, index) => (
+        [
+          (<img
+            key={`image-${index}`}
+            className="item image"
+            src={item.image || ''}
+          />),
+          (<p
+              key={`fact-${index}`}
+              className="item fact"
+            >
+              {item.fact || 'n/a'}
+          </p>),
+          (<button
+            key={`remove-${index}`}
+            className="item removeButton"
+            data-index={index}
+            onClick={props.onRemove}
           >
-            {item.fact || 'n/a'}
-        </p>),
-        (<button
-          key={`remove-${index}`}
-          data-index={index}
-          onClick={props.onRemove}
-        >
-          remove
-        </button>),
-      ]
-    )
-  );
+            remove
+          </button>),
+        ]
+      )
+    ) : null;
 
   return (
     <div className={`${props.className} mediaList`}>

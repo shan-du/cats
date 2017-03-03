@@ -5,13 +5,14 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../actions/cats';
 import MediaList from '../components/MediaList';
 
+const urls = [
+  'http://mapd-cats.azurewebsites.net/catfacts',
+  'http://mapd-cats.azurewebsites.net/catpics',
+];
+
 class Cats extends React.Component {
   componentDidMount() {
     const { dispatch, actions } = this.props; // eslint-disable-line
-    const urls = [
-      'http://mapd-cats.azurewebsites.net/catfacts',
-      'http://mapd-cats.azurewebsites.net/catpics',
-    ]
     dispatch(actions.loadCatsData(urls));
   }
 
