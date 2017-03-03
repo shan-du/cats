@@ -16,12 +16,14 @@ class Cats extends React.Component {
   }
 
   render() {
-    const { data, actions } = this.props;
+    const { data, actions, sortOrder } = this.props;
     return (
       <MediaList
         className="catsList"
         data={data}
         onRemove={actions.removeCatData}
+        onSort={actions.sortDataByFacts}
+        sortOrder={sortOrder}
       />
     );
   }
@@ -30,11 +32,13 @@ class Cats extends React.Component {
 Cats.propTypes = {
   actions: PropTypes.object.isRequired,
   data: PropTypes.array.isRequired,
+  sortOrder: PropTypes.string,
 };
 
 function mapStateToProps(state) {
   return {
     data: state.cats.data,
+    sortOrder: state.cats.sortOrder,
   };
 }
 

@@ -1,9 +1,9 @@
 import {
-  // LOAD_CATS_DATA,
-  REMOVE_CAT_DATA,
   LOAD_CATS_DATA_SUCCESS,
   LOAD_CATS_DATA_PENDING,
   LOAD_CATS_DATA_FAILURE,
+  REMOVE_CAT_DATA,
+  SORT_CATS_DATA,
 } from '../constants/cats';
 
 import { fetchData } from '../utils/fetchHelper';
@@ -12,19 +12,24 @@ import { parseAllResponses } from '../utils/cats';
 import { default as _isArray } from 'lodash/isArray';
 import 'es6-promise';
 
+/**
+ * Redux thunk that calls API & updates states asynchronously via Promise & fetch
+ * @param {String[]} urls
+ */
 export function loadCatsData(urls) {
   return () => (dispatch) => {
     if (_isArray(urls)) {
       dispatch(loadCatsDataPending());
 
+      // use Promise.all to call multiple APIs
       Promise.all(
-        urls.map(fetchData)
+        urls.map(fetchData) // a list of Promises (fetch)
       )
-      .then((allResponse) => {
-        if (!_isArray(allResponse)) {
+      .then((allResponses) => {
+        if (!_isArray(allResponses)) {
           throw Error('invalid API responses');
         }
-        const data = parseAllResponses(allResponse);
+        const data = parseAllResponses(allResponses);
         dispatch(loadCatsDataSuccess(data));
       })
       .catch(
@@ -36,16 +41,7 @@ export function loadCatsData(urls) {
   };
 }
 
-export function removeCatData(e) {
-  const href = e.target.getAttribute('href');
-  return {
-    type: REMOVE_CAT_DATA,
-    payload: { removeIndex: href ? href.substr(1) : -1 },
-  };
-}
-
 export function loadCatsDataSuccess(data) {
-  console.log('action: load cats data success, data=', data);
   return {
     type: LOAD_CATS_DATA_SUCCESS,
     payload: { data },
@@ -66,3 +62,18 @@ export function loadCatsDataPending() {
     type: LOAD_CATS_DATA_PENDING,
   };
 }
+
+export function removeCatData(event) {
+  const removeIndex = event.target.getAttribute('data-index');
+  return {
+    type: REMOVE_CAT_DATA,
+    payload: { removeIndex },
+  };
+}
+
+export function sortDataByFacts() {
+  return {
+    type: SORT_CATS_DATA,
+  };
+}
+

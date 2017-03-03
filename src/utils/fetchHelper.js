@@ -1,3 +1,7 @@
+/**
+ * @returns a Promise with valid response or error
+ * @param {Response} response
+ */
 const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -8,6 +12,10 @@ const checkStatus = (response) => {
   }
 };
 
+/**
+ * @returns a Promise with appropriate response data (json or xml) or throw error
+ * @param {String} url
+ */
 export function fetchData(url) {
   return fetch(url)
     .then((response) => checkStatus(response))

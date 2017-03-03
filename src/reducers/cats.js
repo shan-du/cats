@@ -1,14 +1,14 @@
 import {
-  LOAD_CATS_DATA,
-  REMOVE_CAT_DATA,
   LOAD_CATS_DATA_SUCCESS,
   LOAD_CATS_DATA_PENDING,
   LOAD_CATS_DATA_FAILURE,
+  REMOVE_CAT_DATA,
+  SORT_CATS_DATA,
 } from '../constants/cats';
+import appState from './initialState';
+import { sortDataByFacts } from '../utils/cats';
 
 import objectAssign from 'object-assign';
-import appState from './initialState';
-
 import { default as _filter } from 'lodash/filter';
 
 const initialState = objectAssign(
@@ -17,6 +17,7 @@ const initialState = objectAssign(
       isLoading: false,
       hasErrors: false,
       data: [],
+      sortOrder: '',
     },
   },
   appState,
@@ -34,21 +35,6 @@ const setState = (oldState, newState) =>  objectAssign(
 
 export default function catsReducer(state = initialState.cats, action) {
   switch (action.type) {
-    case REMOVE_CAT_DATA: {
-      const removeIndex = parseInt(action.payload.removeIndex, 10);
-
-      if (!isNaN(removeIndex) && removeIndex >= 0) {
-        // return array with the removeIndex entry filtered out
-        const data = _filter(
-          state.data,
-          (value, index) => (index !== removeIndex)
-        );
-
-        return setState(state, { data });
-      }
-      return state;
-    }
-
     case LOAD_CATS_DATA_PENDING:
       return setState(
         state,
@@ -80,23 +66,33 @@ export default function catsReducer(state = initialState.cats, action) {
       );
     }
 
-    case LOAD_CATS_DATA: {
-      return setState(state, {
-        data: [
-          {
-            media: 'url1',
-            text: 'some text 1',
-          },
-          {
-            media: 'url2',
-            text: 'some text 2',
-          },
-          {
-            media: 'url3',
-            text: 'some text 3',
-          },
-        ],
-      });
+    case REMOVE_CAT_DATA: {
+      const removeIndex = parseInt(action.payload.removeIndex, 10);
+
+      if (!isNaN(removeIndex) && removeIndex >= 0) {
+        // return array with the removeIndex entry filtered out
+        const data = _filter(
+          state.data,
+          (value, index) => (index !== removeIndex)
+        );
+
+        return setState(state, { data });
+      }
+      return state;
+    }
+
+    case SORT_CATS_DATA: {
+      // toggle the sort order between asc & desc
+      const sortOrder = (state.sortOrder === 'asc') ? 'desc' : 'asc';
+      const sortedData = sortDataByFacts(state.data, sortOrder);
+
+      return setState(
+        state,
+        {
+          data: sortedData,
+          sortOrder,
+        }
+      );
     }
 
     default:
