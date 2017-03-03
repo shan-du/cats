@@ -8,7 +8,11 @@ import MediaList from '../components/MediaList';
 class Cats extends React.Component {
   componentDidMount() {
     const { dispatch, actions } = this.props; // eslint-disable-line
-    dispatch((actions.loadCatsData));
+    const urls = [
+      'http://mapd-cats.azurewebsites.net/catfacts',
+      'http://mapd-cats.azurewebsites.net/catpics',
+    ]
+    dispatch(actions.loadCatsData(urls));
   }
 
   render() {

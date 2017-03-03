@@ -6,8 +6,8 @@ const MediaList = (props) => {
     (item, index) => (
       // todo: add valid value check
       <li key={index}>
-        <img src={item.media} />
-        <p>{item.text}</p>
+        {item.image ? (<img src={item.image} />) : null}
+        {item.fact ? (<p>{item.fact}</p>) : null}
         <a
           href={`#${index}`}
           onClick={props.onRemove}

@@ -1,2 +1,6 @@
+export const LOAD_CATS_DATA_SUCCESS = 'cats.LOAD_CATS_DATA_SUCCESS';
+export const LOAD_CATS_DATA_PENDING = 'cats.LOAD_CATS_DATA_PENDING';
+export const LOAD_CATS_DATA_FAILURE = 'cats.LOAD_CATS_DATA_FAILURE';
+
 export const LOAD_CATS_DATA = 'cats.LOAD_CATS_DATA';
 export const REMOVE_CAT_DATA = 'cats.REMOVE_CAT_DATA';

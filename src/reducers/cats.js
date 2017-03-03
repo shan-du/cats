@@ -1,6 +1,9 @@
 import {
   LOAD_CATS_DATA,
   REMOVE_CAT_DATA,
+  LOAD_CATS_DATA_SUCCESS,
+  LOAD_CATS_DATA_PENDING,
+  LOAD_CATS_DATA_FAILURE,
 } from '../constants/cats';
 
 import objectAssign from 'object-assign';
@@ -12,6 +15,7 @@ const initialState = objectAssign(
   {
     cats: {
       isLoading: false,
+      hasErrors: false,
       data: [],
     },
   },
@@ -43,6 +47,37 @@ export default function catsReducer(state = initialState.cats, action) {
         return setState(state, { data });
       }
       return state;
+    }
+
+    case LOAD_CATS_DATA_PENDING:
+      return setState(
+        state,
+        {
+          isLoading: true,
+          hasErrors: false,
+          data: [],
+        }
+      );
+
+    case LOAD_CATS_DATA_FAILURE:
+     return setState(
+        state,
+        {
+          isLoading: false,
+          hasErrors: true,
+        }
+      );
+
+    case LOAD_CATS_DATA_SUCCESS: {
+      const data = action.payload.data;
+      return setState(
+        state,
+        {
+          isLoading: false,
+          hasErrors: false,
+          data,
+        }
+      );
     }
 
     case LOAD_CATS_DATA: {
