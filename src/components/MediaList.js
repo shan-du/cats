@@ -1,18 +1,26 @@
 import React, { PropTypes } from 'react';
+import Loading from './Loading';
+import NoData from './NoData';
 import '../styles/mediaList.scss';
 
 const MediaList = (props) => {
-  const sortArrowClassName = `arrow ${props.sortOrder || 'asc'}`;
+  if (props.isLoading) {
+    return (<Loading />);
+  }
 
-  const sortButton = (props.data.length > 0) ?
-    (
+  let listContent;
+
+  if (props.data.length <= 0) {
+    listContent = (<NoData text="No Catz Here" />);
+  }
+  else {
+    const sortArrowClassName = `arrow ${props.sortOrder || 'asc'}`;
+    const sortButton = (
       <button onClick={props.onSort}>
         Sort Fact <span className={sortArrowClassName} />
       </button>
-    ) : null;
-
-  const list = (props.data.length > 0) ?
-    props.data.map(
+    );
+    const list = props.data.map(
       (item, index) => (
         [
           (<img
@@ -36,18 +44,22 @@ const MediaList = (props) => {
           </button>),
         ]
       )
-    ) : null;
+    );
 
-  return (
-    <div className={`${props.className} mediaList`}>
-      <div className="header">{sortButton}</div>
-      <div className="content">{list}</div>
-    </div>
-  );
+    listContent = (
+      <div className={`${props.className} mediaList`}>
+        <div className="header">{sortButton}</div>
+        <div className="content">{list}</div>
+      </div>
+    );
+  }
+
+  return listContent;
 };
 
 MediaList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool,
   className: PropTypes.string,
   onRemove: PropTypes.func,
   onSort: PropTypes.func,
