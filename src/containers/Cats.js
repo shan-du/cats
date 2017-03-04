@@ -28,6 +28,7 @@ class Cats extends React.Component {
       <MediaList
         className="catsList"
         data={data}
+        loadImageError={actions.loadImageError}
         onRemove={actions.removeCatData}
         onSort={actions.sortDataByFacts}
         isLoading={isLoading}

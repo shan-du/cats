@@ -2,6 +2,7 @@ import {
   LOAD_CATS_DATA_SUCCESS,
   LOAD_CATS_DATA_PENDING,
   LOAD_CATS_DATA_FAILURE,
+  LOAD_IMAGE_ERROR,
   REMOVE_CAT_DATA,
   SORT_CATS_DATA,
 } from '../constants/cats';
@@ -10,6 +11,7 @@ import { sortDataByFacts } from '../utils/cats';
 
 import objectAssign from 'object-assign';
 import { default as _filter } from 'lodash/filter';
+import { default as _map } from 'lodash/map';
 
 const initialState = objectAssign(
   {
@@ -22,6 +24,8 @@ const initialState = objectAssign(
   },
   appState,
 );
+
+const defaultImage = '../assets/404-not-found.jpg';
 
 /**
  * merge new state into old state & returns new state.
@@ -64,6 +68,29 @@ export default function catsReducer(state = initialState.cats, action) {
           data,
         }
       );
+    }
+
+    case LOAD_IMAGE_ERROR: {
+      const errorIndex = parseInt(action.payload.errorIndex, 10);
+
+      if (!isNaN(errorIndex) && errorIndex >= 0) {
+        console.log(`image ${state.data[errorIndex].image} not found at index ${errorIndex}`);
+        const data = _map(
+          state.data,
+          (value, index) => {
+            if (index === errorIndex) {
+              return {
+                image: defaultImage,
+                fact: value.fact,
+              };
+            }
+            return value;
+          }
+        );
+
+        return setState(state, { data });
+      }
+      return state;
     }
 
     case REMOVE_CAT_DATA: {

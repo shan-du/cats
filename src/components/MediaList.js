@@ -27,6 +27,8 @@ const MediaList = (props) => {
             key={`image-${index}`}
             className="item image"
             src={item.image || ''}
+            data-index={index}
+            onError={props.loadImageError}
           />),
           (<p
               key={`fact-${index}`}
@@ -61,6 +63,7 @@ MediaList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
   className: PropTypes.string,
+  loadImageError: PropTypes.func,
   onRemove: PropTypes.func,
   onSort: PropTypes.func,
   sortOrder: PropTypes.string,

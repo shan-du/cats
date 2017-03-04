@@ -2,6 +2,7 @@ import {
   LOAD_CATS_DATA_SUCCESS,
   LOAD_CATS_DATA_PENDING,
   LOAD_CATS_DATA_FAILURE,
+  LOAD_IMAGE_ERROR,
   REMOVE_CAT_DATA,
   SORT_CATS_DATA,
 } from '../constants/cats';
@@ -60,6 +61,14 @@ export function loadCatsDataPending() {
   console.log('action: load cats data pending');
   return {
     type: LOAD_CATS_DATA_PENDING,
+  };
+}
+
+export function loadImageError(event) {
+  const errorIndex = event.target.getAttribute('data-index');
+  return {
+    type: LOAD_IMAGE_ERROR,
+    payload: { errorIndex },
   };
 }
 
