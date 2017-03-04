@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import Loading from './Loading';
 import NoData from './NoData';
+import Image from './Image';
 import '../styles/mediaList.scss';
 
 const MediaList = (props) => {
@@ -23,11 +24,10 @@ const MediaList = (props) => {
     const list = props.data.map(
       (item, index) => (
         [
-          (<img
+          (<Image
             key={`image-${index}`}
-            className="item image"
+            index={index}
             src={item.image || ''}
-            data-index={index}
             onError={props.loadImageError}
           />),
           (<p

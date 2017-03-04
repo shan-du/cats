@@ -38,13 +38,6 @@ $skyBlue: #08C;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
 
-    & > img {
-      width: 100%;
-      border: 1px solid $skyBlue;
-      vertical-align: middle;
-      background: url('../assets/loading.gif') no-repeat 50%;
-    }
-
     & > p,
     & > button {
       align-self: center;
