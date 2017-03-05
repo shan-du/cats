@@ -26,6 +26,7 @@ const MediaList = (props) => {
         [
           (<Image
             key={`image-${index}`}
+            className="item image"
             index={index}
             src={item.image || ''}
             onError={props.loadImageError}

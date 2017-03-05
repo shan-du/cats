@@ -35,8 +35,8 @@ $skyBlue: #08C;
   .content {
     display: grid;
     grid-template-columns: 200px auto 100px;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
+    grid-column-gap: 30px;
+    grid-row-gap: 30px;
 
     & > p,
     & > button {

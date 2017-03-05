@@ -3,6 +3,7 @@ import '../styles/image.scss';
 
 const Image = (props) => {
   const {
+    test,
     index,
     src,
     loadImageError,
@@ -12,7 +13,7 @@ const Image = (props) => {
   return (
     <div
       key={`image-${index}`}
-      className={`item image ${className || ''}`}
+      className={className || ''}
     >
       <img
         src={src || ''}
