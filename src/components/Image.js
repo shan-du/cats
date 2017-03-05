@@ -3,7 +3,6 @@ import '../styles/image.scss';
 
 const Image = (props) => {
   const {
-    test,
     index,
     src,
     loadImageError,
